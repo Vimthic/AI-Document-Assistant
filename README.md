@@ -19,3 +19,10 @@ GitHub
 ## Status
 
 Day 1 Completed
+
+## Current Features
+
+- Read text files
+- Read CSV files
+- Load PDF files
+- Professional project structure

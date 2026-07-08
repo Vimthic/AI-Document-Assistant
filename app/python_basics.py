@@ -121,3 +121,19 @@ for customer, total_spent in revenue_by_customer.items():
 print("\nItems Sold Inventory:")
 for product, count in product_sales_count.items():
     print(f" * {product}: {count} units")
+
+
+#File Read test
+from app.csv_loader import load_csv
+
+df = load_csv("data/sample.csv")
+
+print(df)
+
+#CSV File Read Test:
+from app.csv_loader import load_csv
+
+df = load_csv("data/sample.csv")
+
+print(df)
+
