@@ -27,4 +27,4 @@ Day 1 Completed
 - Load PDF files
 - Professional project structure
 
-![Alternative text describing the image](assets/app-demo.png)
+![App Demo](assets/app_demo.png)
