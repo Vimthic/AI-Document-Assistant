@@ -134,6 +134,22 @@ print(df)
 from app.csv_loader import load_csv
 
 df = load_csv("data/sample.csv")
-
 print(df)
+
+#Extract CSV File Data:
+import pandas as pd
+
+df = pd.read_csv('data/sample_15.csv')
+
+# Find Column Names
+col_names = list(df.columns)
+
+# Find Number of Rows and Columns using .shape (returns a tuple: (rows, columns))
+num_rows = df.shape[0]
+num_cols = df.shape[1]
+
+print("--- Pandas Method Results ---")
+print(f"Number of rows: {num_rows}")
+print(f"Number of columns: {num_cols}")
+print(f"Column names: {col_names}")
 

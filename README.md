@@ -26,3 +26,5 @@ Day 1 Completed
 - Read CSV files
 - Load PDF files
 - Professional project structure
+
+![Alternative text describing the image](assets/app-demo.png)
