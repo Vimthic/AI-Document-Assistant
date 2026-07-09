@@ -27,4 +27,18 @@ Day 1 Completed
 - Load PDF files
 - Professional project structure
 
+## Features Completed
+
+✔ Read Text
+
+✔ Read CSV
+
+✔ Read PDF
+
+✔ Text Cleaning Pipeline
+
+✔ Logging
+
+✔ Modular Architecture
+
 ![App Demo](assets/app_demo.png)

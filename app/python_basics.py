@@ -153,3 +153,7 @@ print(f"Number of rows: {num_rows}")
 print(f"Number of columns: {num_cols}")
 print(f"Column names: {col_names}")
 
+#logger test
+#from app.logger import logger
+
+#logger.info("Loading file")
