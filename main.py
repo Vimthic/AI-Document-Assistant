@@ -1,13 +1,12 @@
-from app.pipeline import process_text_document
+from app.document_service import summarize_document
 
 def main():
 
-    text = process_text_document(
-       # "data/company_policy.txt" 
-        "data/hr_policy.txt" 
+    summary = summarize_document(
+        "data/company_policy.txt"
     )
 
-    print(text)
+    print(summary)
 
 if __name__ == "__main__":
     main()
