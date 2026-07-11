@@ -39,6 +39,12 @@ This application uses a modular three-tier layout (main.py, document_service.py,
 ## Installation Instructions
 Set up a Python virtual environment (python -m venv venv), activate it, and run pip install google-genai python-dotenv to install the dependencies. Finally, save your Google API key inside a local .env file and run python main.py to process your text document
 
+## New Features
+
+- Text Chunking
+- Gemini Embeddings
+- RAG Preparation Pipeline
+
 ![App Demo](assets/app_demo.png)
 ![Preprocessing Demo](assets/preprocessing_demo.png)
 ![AI Response](assets/ai_responses.png)
