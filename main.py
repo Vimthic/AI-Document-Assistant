@@ -44,7 +44,7 @@ vector = generate_embedding(
 
 print(len(vector))
 print(vector[:10])
-'''
+#########
 
 from app.embeddings import generate_embedding
 from app.rag_preparation import prepare_document
@@ -81,3 +81,28 @@ for index, chunk_data in enumerate(document_vectors, start=1):
     print(f"  Length of chunk: {chunk_length} characters")
     print(f"  First 5 embedding values: {first_five_embeddings}")
     print("-" * 40)
+'''
+
+from app.retriever import Retriever
+
+retriever = Retriever()
+
+retriever.add_document(
+    "Employees receive 20 annual leave days."
+)
+
+retriever.add_document(
+    "Remote work is allowed 3 days every week."
+)
+
+retriever.add_document(
+    "Managers approve leave requests."
+)
+
+question = "How many vacation days do employees receive?"
+
+results = retriever.search(
+    question
+)
+
+print(results)

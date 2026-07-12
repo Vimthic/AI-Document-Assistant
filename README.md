@@ -53,6 +53,16 @@ graph TD
     Chunker --> Embedder[Embedding Generator]
 ```
 
+## New Features
+
+✔ Vector Database (FAISS)
+
+✔ Semantic Search
+
+✔ Embedding Storage
+
+✔ Retrieval Layer
+
 
 ![App Demo](assets/app_demo.png)
 ![Preprocessing Demo](assets/preprocessing_demo.png)
