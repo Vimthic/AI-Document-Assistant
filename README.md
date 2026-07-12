@@ -45,11 +45,13 @@ Set up a Python virtual environment (python -m venv venv), activate it, and run 
 - Gemini Embeddings
 - RAG Preparation Pipeline
 
+```mermaid
 graph TD
     PDF[PDF Document] --> Loader[Loader]
     Loader --> Cleaner[Cleaner]
     Cleaner --> Chunker[Chunker]
     Chunker --> Embedder[Embedding Generator]
+```
 
 
 ![App Demo](assets/app_demo.png)
