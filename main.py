@@ -81,7 +81,6 @@ for index, chunk_data in enumerate(document_vectors, start=1):
     print(f"  Length of chunk: {chunk_length} characters")
     print(f"  First 5 embedding values: {first_five_embeddings}")
     print("-" * 40)
-'''
 
 from app.retriever import Retriever
 
@@ -105,4 +104,23 @@ results = retriever.search(
     question
 )
 
+print(results)
+'''
+
+from app.retriever import Retriever
+from app.pipeline import process_text_document
+
+# 1. Initialize the retriever
+retriever = Retriever()
+
+# 2. Get cleaned chunks directly from the fixed pipeline
+chunks = process_text_document("data/company_policy.txt")
+
+# 3. Automatically loop and add each chunk to the retriever
+for chunk in chunks:
+    retriever.add_document(chunk)
+
+# 4. Run your search query
+question = "Who approves leave?"
+results = retriever.search(question)
 print(results)
