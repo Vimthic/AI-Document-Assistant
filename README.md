@@ -61,4 +61,4 @@ graph TD
 ![App Demo](assets/app_demo.png)
 ![Preprocessing Demo](assets/preprocessing_demo.png)
 ![AI Response](assets/ai_responses.png)
-![RAG Response](assets/rag_response.png)
+![RAG Response](assets/rag_multiple_qa.png)

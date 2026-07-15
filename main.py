@@ -146,10 +146,32 @@ rag.retriever.index_document(
     "data/security_policy.txt"
 )
 
-question = input("Ask a question: ")
+rag.retriever.index_document(
+    "data/travel_policy.txt"
+)
 
-answer = rag.ask(question)
+print("\n--- System Ready ---")
+print("Type 'exit' or 'quit' at any time to close the assistant.\n")
 
-print("\nAnswer:\n")
+while True:
+    # 1. Get user input
+    question = input("Ask a question: ").strip()
 
-print(answer)
+    # 2. Check for exit command
+    if question.lower() in ["exit", "quit"]:
+        print("\nGoodbye!")
+        break
+
+    # 3. Skip empty inputs
+    if not question:
+        continue
+
+    # 4. Process the question and get answer
+    print("\nThinking...")
+    try:
+        answer = rag.ask(question)
+        print("\nAnswer:\n")
+        print(answer)
+        print("-" * 40 + "\n")
+    except Exception as e:
+        print(f"\nAn error occurred: {e}\n")
