@@ -41,29 +41,24 @@ Set up a Python virtual environment (python -m venv venv), activate it, and run 
 
 ## New Features
 
-- Text Chunking
-- Gemini Embeddings
-- RAG Preparation Pipeline
+- Multi-document search
+- Semantic retrieval
+- AI answers from company policies
+- Hallucination reduction using RAG
 
 ```mermaid
 graph TD
-    Documents[Documents] --> Chunking[Chunking]
+    Documents[Documents] --> Loader[Loader]
+    Loader --> Cleaner[Cleaner]
+    Cleaner --> Chunking[Chunking]
     Chunking --> Embeddings[Embeddings]
     Embeddings --> FAISS[FAISS]
     FAISS --> Retriever[Retriever]
+    Retriever --> Gemini[Gemini]
+    Gemini --> Answer[Answer]
 ```
-
-## New Features
-
-✔ Vector Database (FAISS)
-
-✔ Semantic Search
-
-✔ Embedding Storage
-
-✔ Retrieval Layer
-
 
 ![App Demo](assets/app_demo.png)
 ![Preprocessing Demo](assets/preprocessing_demo.png)
 ![AI Response](assets/ai_responses.png)
+![RAG Response](assets/rag_response.png)

@@ -1,4 +1,4 @@
-'''from app.pipeline import process_text_document
+from app.pipeline import process_text_document
 from app.chunking import split_document
 from app.embeddings import generate_embedding
 
@@ -22,10 +22,10 @@ def prepare_document(path):
         )
 
     return vectors
-    '''
 
-# app/rag_preparation.py
 
+
+'''
 # 1. Import your Retriever class
 from app.retriever import Retriever
 
@@ -67,3 +67,4 @@ def chunk_text(text, chunk_size=500, overlap=50):
         chunks.append(chunk)
         
     return chunks
+'''

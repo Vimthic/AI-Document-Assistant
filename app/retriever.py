@@ -1,5 +1,6 @@
 from app.vector_store import VectorStore
 from app.embeddings import generate_embedding
+from app.rag_preparation import prepare_document
 
 class Retriever:
 
@@ -31,3 +32,14 @@ class Retriever:
         return self.store.search(
             embedding
         )
+    
+    def index_document(self, file_path):
+
+        chunks = prepare_document(file_path)
+
+        for item in chunks:
+
+            self.store.add(
+                item["embedding"],
+                item["text"]
+            )

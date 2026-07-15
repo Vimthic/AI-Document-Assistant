@@ -106,6 +106,8 @@ results = retriever.search(
 
 print(results)
 '''
+'''
+# For Building First Vector Database with FAISS
 
 from app.retriever import Retriever
 from app.pipeline import process_text_document
@@ -124,3 +126,30 @@ for chunk in chunks:
 question = "Who approves leave?"
 results = retriever.search(question)
 print(results)
+'''
+
+# To Build a Complete RAG Pipeline  
+
+from app.rag_service import RAGService
+
+rag = RAGService()
+
+rag.retriever.index_document(
+    "data/company_policy.txt"
+)
+
+rag.retriever.index_document(
+    "data/it_policy.txt"
+)
+
+rag.retriever.index_document(
+    "data/security_policy.txt"
+)
+
+question = input("Ask a question: ")
+
+answer = rag.ask(question)
+
+print("\nAnswer:\n")
+
+print(answer)
