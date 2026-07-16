@@ -1,3 +1,4 @@
+# functions and its call
 def add(a, b):
     return a + b
 
