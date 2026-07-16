@@ -1,0 +1,30 @@
+================================================================================
+CORPORATE INFORMATION SECURITY POLICY
+================================================================================
+1. PURPOSE
+This document outlines mandatory security rules for all employees and contractors to protect company data.
+
+2. PASSWORD RULES
+- All passwords must be a minimum of 14 characters in length.
+- Passwords must be unique for every account and managed using the approved password manager.
+- Passwords must never be written down, shared with coworkers, or stored in plaintext.
+- Default and vendor-supplied credentials must be changed before any system goes live.
+
+3. MULTI-FACTOR AUTHENTICATION (MFA)
+- Multi-factor authentication must be enabled on all corporate accounts, email, and identity providers.
+- MFA is mandatory for all remote access and administrative/privileged systems.
+- Circumventing or disabling MFA is strictly prohibited without written IT approval.
+
+4. VIRTUAL PRIVATE NETWORK (VPN)
+- A corporate VPN must be active when accessing internal networks, servers, and confidential data remotely.
+- Employees must not access company networks from unsecured or public Wi-Fi without using the VPN.
+- VPN sessions must not be left unattended; log out or disconnect when the session is complete.
+
+5. USB DEVICE RESTRICTIONS
+- The use of unauthorized, unencrypted USB storage devices is strictly prohibited on company hardware.
+- Only IT-provisioned, hardware-encrypted USB drives may be used for data transfer.
+- File transfers to and from personal USB devices are blocked to prevent data loss and malware.
+
+6. COMPLIANCE
+Failure to adhere to these policies may result in disciplinary action and revocation of system access.
+================================================================================
