@@ -58,7 +58,20 @@ graph TD
     Gemini --> Answer[Answer]
 ```
 
+## Version 1.0
+
+✔ Streamlit UI
+
+✔ Upload Documents
+
+✔ Ask Questions
+
+✔ AI Answers
+
+✔ Chat History
+
 ![App Demo](assets/app_demo.png)
 ![Preprocessing Demo](assets/preprocessing_demo.png)
 ![AI Response](assets/ai_responses.png)
 ![RAG Response](assets/rag_multiple_qa.png)
+![RAG Response in UI](assets/ui_rag_response.png)
