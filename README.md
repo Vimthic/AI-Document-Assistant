@@ -46,6 +46,18 @@ Set up a Python virtual environment (python -m venv venv), activate it, and run 
 - AI answers from company policies
 - Hallucination reduction using RAG
 
+## Version 1.0
+
+✔ Streamlit UI
+
+✔ Upload Documents
+
+✔ Ask Questions
+
+✔ AI Answers
+
+✔ Chat History
+
 ```mermaid
 graph TD
     Documents[Documents] --> Loader[Loader]
@@ -62,3 +74,4 @@ graph TD
 ![Preprocessing Demo](assets/preprocessing_demo.png)
 ![AI Response](assets/ai_responses.png)
 ![RAG Response](assets/rag_multiple_qa.png)
+![Streamlit AI Response](assets/streamlit_res.png)
