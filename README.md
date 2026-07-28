@@ -74,4 +74,4 @@ graph TD
 ![Preprocessing Demo](assets/preprocessing_demo.png)
 ![AI Response](assets/ai_responses.png)
 ![RAG Response](assets/rag_multiple_qa.png)
-![Streamlit AI Response](assets/streamlit_res.png)
+![Streamlit AI Response](assets/streamlit_ui_res.png)

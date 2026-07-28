@@ -21,10 +21,9 @@ UPLOAD_DIR = "data"
 if not os.path.exists(UPLOAD_DIR):
     os.makedirs(UPLOAD_DIR)
 
-# 3. FIX: Persist the RAG service and index documents ONLY ONCE
+# 3. Persist the RAG service and index documents ONLY ONCE
 if "rag_service" not in st.session_state:
     try:
-        # Create the service skeleton once
         service = RAGService()
         
         # Read and index ONLY text/csv files sitting in your data folder on startup
@@ -40,13 +39,13 @@ if "rag_service" not in st.session_state:
         st.error(f"Initialization error: Check your .env file setup. Details: {e}")
         st.stop()
 
-# Helper state tracking for chat logs
+# Helper state tracking for chat logs and file manifests
 if "messages" not in st.session_state:
     st.session_state.messages = []
 if "indexed_files" not in st.session_state:
-    st.session_state.indexed_files = set()
+    st.session_state.indexed_files = set(os.listdir(UPLOAD_DIR) if os.path.exists(UPLOAD_DIR) else [])
 
-# Sidebar utility layout (Handles file uploads and configurations)
+# Sidebar utility layout
 with st.sidebar:
     st.header("Upload Documents")
     uploaded_files = st.file_uploader(
@@ -56,7 +55,7 @@ with st.sidebar:
     )
     
     if uploaded_files:
-        new_files_added = False
+        just_indexed_now = []
         
         # Save incoming files to disk safely
         for uploaded_file in uploaded_files:
@@ -71,26 +70,25 @@ with st.sidebar:
                 try:
                     st.session_state.rag_service.retriever.index_document(file_path)
                     st.session_state.indexed_files.add(uploaded_file.name)
-                    new_files_added = True
+                    just_indexed_now.append(uploaded_file.name)
                 except Exception as e:
                     st.error(f"Error indexing {uploaded_file.name}: {e}")
+            else:
+                just_indexed_now.append(uploaded_file.name)
         
-        if new_files_added:
-            st.toast("✅ New documents successfully indexed!", icon="🚀")
-            st.success("Database fully updated!")
-
-    st.header("Actions")
-    if st.button("Clear Conversation Log"):
-        st.session_state.messages = []
-        st.sidebar.success("Chat history cleared!")
-        st.rerun()
+        # Renders the response ONLY when a file is actively dropped into the uploader
+        if just_indexed_now:
+            st.success("🎉 **File Uploaded and Indexed successfully!**")
+            for f_name in sorted(just_indexed_now):
+                # FIX: Changed file_name to f_name to match the loop iterator variable
+                st.markdown(f"📄 `{f_name}`")
 
 # 4. Display all previous messages (Enables historical scrolling)
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
 
-# 5. User interactive query input field (No-rerun configuration)
+# 5. User interactive query input field
 if question := st.chat_input("Ask a question about your documents"):
     
     # Render user query instantly on screen
@@ -112,3 +110,11 @@ if question := st.chat_input("Ask a question about your documents"):
                 error_msg = f"Error generating response: {e}"
                 st.error(error_msg)
                 st.session_state.messages.append({"role": "assistant", "content": error_msg})
+
+# 6. Position Clear Chat option cleanly under the chat box with backward-compatible syntax
+if st.session_state.messages:
+    col1, col2 = st.columns(2)
+    with col2:
+        if st.button("🧹 Clear Chat", use_container_width=True):
+            st.session_state.messages = []  # Wipes conversation logs cleanly
+            st.rerun()  # Forces immediate visual update to clear screen layout
