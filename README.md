@@ -58,6 +58,17 @@ Set up a Python virtual environment (python -m venv venv), activate it, and run 
 
 ✔ Chat History
 
+## Version 2.0
+
+✔ Persistent FAISS Index
+
+✔ Metadata Storage
+
+✔ Faster Startup
+
+✔ Configuration Management
+
+
 ```mermaid
 graph TD
     Documents[Documents] --> Loader[Loader]
