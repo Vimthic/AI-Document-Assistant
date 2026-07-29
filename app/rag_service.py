@@ -1,3 +1,4 @@
+'''
 from app.retriever import Retriever
 from app.gemini_client import ask_gemini
 
@@ -41,4 +42,33 @@ Question:
 {question}
 """
 
+        return ask_gemini(prompt)
+        '''
+#For FAISS index store
+from app.retriever import Retriever
+from app.gemini_client import ask_gemini
+
+class RAGService:
+
+    def __init__(self):
+        self.retriever = Retriever()
+
+    def ask(self, question):
+        chunks = self.retriever.search(question)
+        context = "\n\n".join(chunks)
+
+        prompt = f"""
+You are an HR assistant.
+Answer ONLY from the provided context.
+If the answer is not found in the context,
+DO NOT guess.
+Reply:
+"I couldn't find that information in the uploaded documents."
+Context:
+{context}
+Question:
+{question}
+"""
+        # FIX: Use "return" directly here because ask_gemini returns a Generator.
+        # This passes the live stream all the way through to Streamlit.
         return ask_gemini(prompt)
