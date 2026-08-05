@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from google import genai
+from google.genai import types  # Imported to structural configure content generation configs
 import time
 from google.genai.errors import APIError
 from typing import Generator
@@ -20,15 +21,23 @@ def ask_gemini(prompt: str) -> Generator[str, None, None]:
     """
     models_to_try = ["gemini-3.5-flash", "gemini-3.1-flash-lite"]
     
+    # Task Fix: Configure generation rules to turn off Automatic Function Calling (AFC) loops
+    generation_config = types.GenerateContentConfig(
+        automatic_function_calling=types.AutomaticFunctionCallingConfig(
+            maximum_remote_calls=0
+        )
+    )
+    
     for model_name in models_to_try:
         try:
             # Safe Logging: Logs API metadata (model & text size) instead of raw text content
             log_api_call(model_name, len(prompt))
 
-            # Streams content piece-by-piece from Gemini
+            # Streams content piece-by-piece from Gemini with the disabled AFC config injection
             response_stream = client.models.generate_content_stream(
                 model=model_name,
                 contents=prompt,
+                config=generation_config
             )
             
             # Yield text chunks piece-by-piece as they arrive from the API
