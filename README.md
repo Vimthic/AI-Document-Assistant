@@ -68,6 +68,15 @@ Set up a Python virtual environment (python -m venv venv), activate it, and run 
 
 ✔ Configuration Management
 
+## Version 3.0
+
+✔ Conversation Memory
+
+✔ Prompt Templates
+
+✔ Source Citations
+
+✔ Improved Logging
 
 ```mermaid
 graph TD
