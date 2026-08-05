@@ -86,3 +86,4 @@ graph TD
 ![AI Response](assets/ai_responses.png)
 ![RAG Response](assets/rag_multiple_qa.png)
 ![Streamlit AI Response](assets/streamlit_ui_res.png)
+![RAG APP Demo](assets/rag_app_result.png)
