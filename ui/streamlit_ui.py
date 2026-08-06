@@ -191,7 +191,6 @@ except Exception as e:
     st.stop()
 
 retriever_engine = st.session_state.rag_service.retriever
-# Instantiate the new Hybrid Search architecture engine
 hybrid_engine = HybridRetriever(retriever_engine)
 
 # Sidebar Status Display Layout
@@ -209,11 +208,11 @@ with st.sidebar:
         
     st.divider()
 
-    # TASK 2: Sidebar Filter Selectbox layout logic integration
+    # Category Filtering Dropdown Selection Module (Including Finance)
     st.header("🔍 Document Filter")
     selected_category = st.selectbox(
         "Document Category",
-        ["All", "HR", "IT", "Security", "Travel"],
+        ["All", "HR", "Finance", "IT", "Security", "Travel"],
         key="app_sidebar_category_filter"
     )
 
@@ -249,7 +248,7 @@ with st.sidebar:
             st.session_state.upload_success = True
             st.rerun()
 
-# 4. FIXED VISUAL LOOK: Force the visual array list to only show the latest 6 items on your screen!
+# 4. FIXED VISUAL LOOK: Force the visual array list to only show the latest 6 items on your screen
 visible_history = st.session_state.messages[-6:]
 
 for msg in visible_history:
@@ -262,12 +261,13 @@ for msg in visible_history:
         with st.chat_message("assistant", avatar="🤖"):
             st.markdown("**Assistant**")
             st.markdown(msg['content'])
-            if "sources" in msg and msg["sources"]:
-                st.markdown("**Sources:**")
-                for src in msg["sources"]:
-                    st.markdown(f"📄 `{src}`")
             
-            # Persistent check rendering past Developer Evaluation Scores on layout refreshes
+            # Task 2: Render past standard production citations with custom checkmark layout
+            if "sources" in msg and msg["sources"]:
+                st.markdown("**Retrieved Documents**")
+                for src in msg["sources"]:
+                    st.markdown(f"✔ {src}")
+            
             if "dev_evaluation" in msg and msg["dev_evaluation"]:
                 with st.expander("🛠️ Developer View: Retrieved Documents"):
                     for dev_doc in msg["dev_evaluation"]:
@@ -296,10 +296,10 @@ if question := st.chat_input("Ask a question about your documents"):
             
             full_response = st.write_stream(response_stream)
             
-            # Hybrid Retrival Integration with Sidebar Filter Mapping passed downwards
+            # Hybrid Retrieval Execution path query
             matched_sources = hybrid_engine.search(question, category_filter=selected_category, k=3)
             
-            unique_filenames = set()
+            unique_source_strings = set()
             dev_evaluation_payloads = []
             
             lower_question = question.lower()
@@ -313,7 +313,6 @@ if question := st.chat_input("Ask a question about your documents"):
                     fname = source_item["filename"].lower()
                     chunk_text = source_item.get("text", "").lower()
                     
-                    # Capture score and category items for developer reporting parameters
                     dev_evaluation_payloads.append({
                         "filename": source_item["filename"],
                         "score": source_item["score"],
@@ -326,20 +325,24 @@ if question := st.chat_input("Ask a question about your documents"):
                         continue
                         
                     if any(word in chunk_text for word in query_words) or len(query_words) == 0:
-                        unique_filenames.add(source_item["filename"])
+                        # Task 2: Build formatted text string blueprint: filename.txt (Category)
+                        formatted_citation = f"{source_item['filename']} ({source_item['category']})"
+                        unique_source_strings.add(formatted_citation)
             
-            if not unique_filenames and matched_sources:
+            if not unique_source_strings and matched_sources:
                 first_item = matched_sources[0]
                 if isinstance(first_item, dict) and "filename" in first_item:
-                    unique_filenames.add(first_item["filename"])
+                    formatted_citation = f"{first_item['filename']} ({first_item['category']})"
+                    unique_source_strings.add(formatted_citation)
 
-            final_sources_list = sorted(list(unique_filenames))
-            if final_sources_list:
-                st.markdown("\n\n**Sources:**")
-                for source_file in final_sources_list:
-                    st.markdown(f"📄 `{source_file}`")
+            final_sources_list = sorted(list(unique_source_strings))
             
-            # TASK 3: Print out score indicators inside an expandable developer block
+            # Task 2: Update Streamlit display to render the target layout header with a checkmark
+            if final_sources_list:
+                st.markdown("\n\n**Retrieved Documents**")
+                for source_str in final_sources_list:
+                    st.markdown(f"✔ {source_str}")
+            
             if dev_evaluation_payloads:
                 with st.expander("🛠️ Developer View: Retrieved Documents"):
                     for dev_doc in dev_evaluation_payloads:

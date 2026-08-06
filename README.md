@@ -103,3 +103,4 @@ graph TD
 ![RAG Response](assets/rag_multiple_qa.png)
 ![Streamlit AI Response](assets/streamlit_ui_res.png)
 ![RAG APP Demo](assets/rag_app_result.png)
+![Hybrid Search Demo](assets/hybrid_search_res.png)
