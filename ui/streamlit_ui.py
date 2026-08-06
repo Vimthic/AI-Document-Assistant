@@ -136,11 +136,13 @@ if st.session_state.messages:
 #for streaming response
 '''
 
+# ui/streamlit_ui.py
 import os
 import streamlit as st
 from dotenv import load_dotenv, find_dotenv
 from app.rag_service import RAGService
 from app.retriever import Retriever, FAISS_PATH, METADATA_PATH
+from app.hybrid_retriever import HybridRetriever
 
 # 1. Load configuration environment variables cleanly
 load_dotenv(find_dotenv())
@@ -189,6 +191,8 @@ except Exception as e:
     st.stop()
 
 retriever_engine = st.session_state.rag_service.retriever
+# Instantiate the new Hybrid Search architecture engine
+hybrid_engine = HybridRetriever(retriever_engine)
 
 # Sidebar Status Display Layout
 with st.sidebar:
@@ -203,6 +207,16 @@ with st.sidebar:
         st.markdown(f"📄 **Indexed Documents:** {doc_count}")
         st.markdown(f"🧱 **Total Chunks:** {retriever_engine.total_chunks}")
         
+    st.divider()
+
+    # TASK 2: Sidebar Filter Selectbox layout logic integration
+    st.header("🔍 Document Filter")
+    selected_category = st.selectbox(
+        "Document Category",
+        ["All", "HR", "IT", "Security", "Travel"],
+        key="app_sidebar_category_filter"
+    )
+
     st.divider()
 
     st.header("Upload Documents")
@@ -252,6 +266,14 @@ for msg in visible_history:
                 st.markdown("**Sources:**")
                 for src in msg["sources"]:
                     st.markdown(f"📄 `{src}`")
+            
+            # Persistent check rendering past Developer Evaluation Scores on layout refreshes
+            if "dev_evaluation" in msg and msg["dev_evaluation"]:
+                with st.expander("🛠️ Developer View: Retrieved Documents"):
+                    for dev_doc in msg["dev_evaluation"]:
+                        st.markdown(f"**File:** `{dev_doc['filename']}`")
+                        st.markdown(f"**Score:** `{dev_doc['score']}` | **Category:** `{dev_doc['category']}`")
+                        st.markdown("---")
 
 # 5. Interactive Query Processing Field
 if question := st.chat_input("Ask a question about your documents"):
@@ -265,7 +287,6 @@ if question := st.chat_input("Ask a question about your documents"):
     with st.chat_message("assistant", avatar="🤖"):
         st.markdown("**Assistant**")
         try:
-            # Synchronize history window tracking 
             bounded_history = st.session_state.messages[-6:]
             
             response_stream = st.session_state.rag_service.ask(
@@ -275,9 +296,11 @@ if question := st.chat_input("Ask a question about your documents"):
             
             full_response = st.write_stream(response_stream)
             
-            # Fetch matched source objects from vector engine
-            matched_sources = retriever_engine.search(question)
+            # Hybrid Retrival Integration with Sidebar Filter Mapping passed downwards
+            matched_sources = hybrid_engine.search(question, category_filter=selected_category, k=3)
+            
             unique_filenames = set()
+            dev_evaluation_payloads = []
             
             lower_question = question.lower()
             force_company_only = "company" in lower_question and "travel" not in lower_question
@@ -290,6 +313,13 @@ if question := st.chat_input("Ask a question about your documents"):
                     fname = source_item["filename"].lower()
                     chunk_text = source_item.get("text", "").lower()
                     
+                    # Capture score and category items for developer reporting parameters
+                    dev_evaluation_payloads.append({
+                        "filename": source_item["filename"],
+                        "score": source_item["score"],
+                        "category": source_item["category"]
+                    })
+                    
                     if force_company_only and "company" not in fname:
                         continue
                     if force_travel_only and "travel" not in fname:
@@ -299,7 +329,7 @@ if question := st.chat_input("Ask a question about your documents"):
                         unique_filenames.add(source_item["filename"])
             
             if not unique_filenames and matched_sources:
-                first_item = matched_sources
+                first_item = matched_sources[0]
                 if isinstance(first_item, dict) and "filename" in first_item:
                     unique_filenames.add(first_item["filename"])
 
@@ -309,19 +339,26 @@ if question := st.chat_input("Ask a question about your documents"):
                 for source_file in final_sources_list:
                     st.markdown(f"📄 `{source_file}`")
             
+            # TASK 3: Print out score indicators inside an expandable developer block
+            if dev_evaluation_payloads:
+                with st.expander("🛠️ Developer View: Retrieved Documents"):
+                    for dev_doc in dev_evaluation_payloads:
+                        st.markdown(f"**File:** `{dev_doc['filename']}`")
+                        st.markdown(f"**Score:** `{dev_doc['score']}` | **Category:** `{dev_doc['category']}`")
+                        st.markdown("---")
+            
             st.session_state.messages.append({
                 "role": "assistant", 
                 "content": full_response,
-                "sources": final_sources_list
+                "sources": final_sources_list,
+                "dev_evaluation": dev_evaluation_payloads
             })
-            
-            # Instantly refresh layout so older visual slots pop off screen immediately
             st.rerun()
                 
         except Exception as e:
             error_msg = f"Error generating response: {e}"
             st.error(error_msg)
-            st.session_state.messages.append({"role": "assistant", "content": error_msg, "sources": []})
+            st.session_state.messages.append({"role": "assistant", "content": error_msg, "sources": [], "dev_evaluation": []})
 
 # 6. Position Clear Chat option cleanly under the chat box
 if st.session_state.messages:
