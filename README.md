@@ -90,10 +90,10 @@ Set up a Python virtual environment (python -m venv venv), activate it, and run 
 
 ```mermaid
 graph TD
-    Question[Question] --> Hybrid Search[Hybrid Search]
-    Hybrid Search --> Category Filter[Category Filter]
-    Category Filter --> Rank Results[Rank Results]
-    Rank Results --> Gemini[Gemini]
+    Question[Question] --> HybridSearch[HybridSearch]
+    HybridSearch --> CategoryFilter[CategoryFilter]
+    CategoryFilter --> RankResults[RankResults]
+    RankResults --> Gemini[Gemini]
     Gemini --> Answer[Answer]
 ```
 
