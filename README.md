@@ -78,15 +78,22 @@ Set up a Python virtual environment (python -m venv venv), activate it, and run 
 
 ✔ Improved Logging
 
+## Version 4.0
+
+✔ Hybrid Search
+
+✔ Document Filtering
+
+✔ Retrieval Scores
+
+✔ Evaluation Framework
+
 ```mermaid
 graph TD
-    Documents[Documents] --> Loader[Loader]
-    Loader --> Cleaner[Cleaner]
-    Cleaner --> Chunking[Chunking]
-    Chunking --> Embeddings[Embeddings]
-    Embeddings --> FAISS[FAISS]
-    FAISS --> Retriever[Retriever]
-    Retriever --> Gemini[Gemini]
+    Question[Question] --> Hybrid Search[Hybrid Search]
+    Hybrid Search --> Category Filter[Category Filter]
+    Category Filter --> Rank Results[Rank Results]
+    Rank Results --> Gemini[Gemini]
     Gemini --> Answer[Answer]
 ```
 
