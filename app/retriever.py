@@ -175,17 +175,31 @@ from app.logger import log_secure_action, log_milestone
 FAISS_PATH = "storage/faiss/faiss_store"
 METADATA_PATH = "storage/metadata/faiss_store"
 
+# Inside app/retriever.py
+
 def map_filename_to_category(filename):
+    """Category Helper Logic: Enhanced to support the new Finance domain."""
     fn = filename.lower()
-    if "security" in fn or "password" in fn or "auth" in fn:
-        return "Security"
-    if "it" in fn or "vpn" in fn or "network" in fn:
-        return "IT"
-    if "hr" in fn or "leave" in fn or "employee" in fn or "company_policy" in fn:
+    
+    # New Finance Category Mapping Rules
+    if "finance" in fn or "expense" in fn or "billing" in fn:
+        return "Finance"
+        
+    # Updated HR Category Mapping Rules (Includes benefits)
+    if "hr" in fn or "leave" in fn or "employee" in fn or "company_policy" in fn or "benefits" in fn:
         return "HR"
-    if "travel" in fn or "reimbursement" in fn or "hotel" in fn:
+        
+    if "security" in fn or "password" in fn or "auth" in fn or "security_policy" in fn:
+        return "Security"
+        
+    if "it" in fn or "vpn" in fn or "network" in fn or "it_policy" in fn:
+        return "IT"
+        
+    if "travel" in fn or "reimbursement" in fn or "hotel" in fn or "travel_policy" in fn:
         return "Travel"
-    return "HR"
+        
+    return "HR"  # Enterprise structural safety fallback
+
 
 class Retriever:
     def __init__(self):

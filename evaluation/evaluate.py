@@ -12,18 +12,24 @@ except ImportError as e:
     print(f"Directory configuration mismatch error details: {e}")
     sys.exit(1)
 
-# Task 4 Target System Evaluation Dataset Array
+# Task 1: Extended 10-Question Evaluation Dataset
 EVAL_DATASET = [
-    {"question": "How many leave days?", "expected_document": "company_policy.txt"},
-    {"question": "VPN policy?", "expected_document": "it_policy.txt"},
-    {"question": "Password rules?", "expected_document": "security_policy.txt"},
-    {"question": "Hotel reimbursement?", "expected_document": "travel_policy.txt"}
+    {"question": "How many leave days do I get annually?", "expected_document": "company_policy.txt"},
+    {"question": "What is the policy for corporate VPN connections?", "expected_document": "it_policy.txt"},
+    {"question": "What are the rules for password length and complexity?", "expected_document": "security_policy.txt"},
+    {"question": "How do I get a hotel reimbursement for business travel?", "expected_document": "travel_policy.txt"},
+    {"question": "What medical insurance benefits are covered?", "expected_document": "benefits_policy.txt"},
+    {"question": "Who signs off on quarterly budget allocations?", "expected_document": "finance_policy.txt"},
+    {"question": "Is parental leave fully paid or partially paid?", "expected_document": "company_policy.txt"},
+    {"question": "How often do I need to complete security awareness training?", "expected_document": "security_policy.txt"},
+    {"question": "What is the maximum allowance for corporate flight bookings?", "expected_document": "travel_policy.txt"},
+    {"question": "Where do I submit monthly office equipment expense invoices?", "expected_document": "finance_policy.txt"}
 ]
 
 def run_system_evaluation():
-    print("=" * 75)
-    print("🚀 Running Hybrid Architecture RAG Application Evaluation Engine")
-    print("=" * 75)
+    print("=" * 80)
+    print("🚀 Running Extended RAG Evaluation Suite (10 Test Parameters)")
+    print("=" * 80)
     
     base_retriever = Retriever()
     if not base_retriever.has_existing_index():
@@ -33,47 +39,43 @@ def run_system_evaluation():
     base_retriever.load_existing_index()
     hybrid_retriever = HybridRetriever(base_retriever)
     
-    match_count = 0
-    total = len(EVAL_DATASET)
+    correct_retrievals = 0
+    total_questions = len(EVAL_DATASET)
     
-    print(f"Testing {total} complex evaluation parameters against active index...")
-    print("-" * 75)
-    
-    row_layout = "{:<25} | {:<20} | {:<20} | {:<6} | {:<5}"
-    print(row_layout.format("Question Sent", "Expected Target", "Top Hit Returned", "Score", "Match"))
-    print("-" * 75)
+    row_layout = "{:<45} | {:<20} | {:<20} | {:<5}"
+    print(row_layout.format("Question Sent", "Expected Target", "Top Hit Returned", "Match"))
+    print("-" * 80)
     
     for item in EVAL_DATASET:
         question = item["question"]
         expected = item["expected_document"]
         
-        # Test query execution pipeline (defaults category filter to All for comprehensive baseline evaluation)
+        # Query the hybrid pipeline using baseline global search configuration
         hits = hybrid_retriever.search(question, category_filter="All", k=1)
         
         if hits:
             top_hit = hits[0]
             retrieved_doc = top_hit["filename"]
-            score = top_hit["score"]
         else:
             retrieved_doc = "None Found"
-            score = 0.00
             
         is_match = "Yes" if retrieved_doc.strip().lower() == expected.strip().lower() else "No"
         if is_match == "Yes":
-            match_count += 1
+            correct_retrievals += 1
             
-        print(row_layout.format(
-            question[:23],
-            expected[:18],
-            retrieved_doc[:18],
-            str(score),
-            is_match
-        ))
+        # Truncate long questions for text-terminal display grid safety
+        display_q = question if len(question) <= 42 else question[:39] + "..."
+        print(row_layout.format(display_q, expected, retrieved_doc, is_match))
         
-    accuracy_percentage = (match_count / total) * 100
-    print("-" * 75)
-    print(f"📊 Accuracy Metric Result: {accuracy_percentage:.1f}% ({match_count}/{total} Test Items Passed)")
-    print("=" * 75)
+    # Calculate target metric indicators
+    retrieval_accuracy = (correct_retrievals / total_questions) * 100
+    
+    print("-" * 80)
+    print("📊 FINAL RETRIEVAL PERFORMANCE METRICS:")
+    print(f"🔹 Total Questions:     {total_questions}")
+    print(f"🔹 Correct Retrievals:   {correct_retrievals}")
+    print(f"🎯 Retrieval Accuracy:   {retrieval_accuracy:.2f}%")
+    print("=" * 80)
 
 if __name__ == "__main__":
     run_system_evaluation()

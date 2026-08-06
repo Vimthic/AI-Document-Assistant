@@ -1,44 +1,51 @@
 [
   {
-    "text": "abc company leave policy employees receive 20 annual leave days. employees can work remotely 3 days every week. managers must approve leave requests.",
-    "filename": "company_policy.txt",
+    "text": "1. this policy sets the core rules for company spending and money management. 2. all staff must follow these rules when they use company funds. 3. the finance team must check and approve all budgets before spending starts. 4. workers must get approval from a boss before they buy items for work. 5. you must keep every receipt for any business cost you pay. 6. submit your money back forms within thirty days of the cost date. 7. the firm does not pay back money for personal items or food. 8. travel",
+    "filename": "finance_policy.txt",
+    "category": "Finance",
+    "chunk_number": 1,
+    "page": 1
+  },
+  {
+    "text": "back money for personal items or food. 8. travel costs must use the cheapest safe choice available. 9. plane tickets need a booking two weeks before the trip date. 10. hotel costs have a set limit for each night of stay. 11. client meals need a list of all people who attend the meal. 12. the company pays for work car use by a set rate per mile. 13. large asset buys need two price quotes from different sellers. 14. no worker can sign a money contract over five thousand dollars alone. 15. the",
+    "filename": "finance_policy.txt",
+    "category": "Finance",
+    "chunk_number": 2,
+    "page": 1
+  },
+  {
+    "text": "over five thousand dollars alone. 15. the firm pays all vendor bills within thirty days of getting them. 16. the cash drawer must balance at the end of each work day. 17. audits of all financial records will happen twice every year. 18. any lost receipt means the worker might not get their money back. 19. fraud or bad use of company funds leads to job loss at once. 20. ask the finance head if you have questions about this policy.",
+    "filename": "finance_policy.txt",
+    "category": "Finance",
+    "chunk_number": 3,
+    "page": 1
+  },
+  {
+    "text": "1. this policy outlines the core employee benefits provided by the company. 2. fulltime regular employees working 30 hours weekly are eligible. 3. coverage for health insurance begins on the first day of employment. 4. the company pays a major share of standard medical plan premiums. 5. dental and vision options are available during open enrollment periods. 6. paid time off pto accrues every pay period for fulltime staff. 7. employees receive ten paid national holidays designated each year. 8.",
+    "filename": "benefits_policy.txt",
     "category": "HR",
     "chunk_number": 1,
     "page": 1
   },
   {
-    "text": "1. general all business travel requires prior written approval from your reporting manager. 2. expense submission submit all travel claims via the company expense portal within 7 days of the trip. 3. reimbursement processing all valid claims will be processed within 15 days of submission. 4. hotel booking all hotel reservations should be made through the corporate travel portal. 5. accommodation limits employees must book standard midrange business hotels within city caps. 6. incidentals",
-    "filename": "travel_policy.txt",
-    "category": "Travel",
-    "chunk_number": 1,
-    "page": 1
-  },
-  {
-    "text": "business hotels within city caps. 6. incidentals personal charges like inroom movies minibar or laundry are not reimbursable. 7. meal allowance employees are provided a maximum daily per diem based on the destination. 8. meal claims meals must be documented the per diem allowance cannot be rolled over to the next day. 9. alcohol alcoholic beverages are considered nonreimbursable personal expenses. 10. taxi claims use the most costeffective ground transport shared ridesharing services are",
-    "filename": "travel_policy.txt",
-    "category": "Travel",
+    "text": "paid national holidays designated each year. 8. sick leave is provided separately to handle personal health needs. 9. the 401k retirement plan includes an employer match up to four percent. 10. employees vest immediately in all personal and matching retirement funds. 11. life insurance equal to one years salary is provided at no cost. 12. shortterm and longterm disability coverage protects income during illness. 13. the employee assistance program offers free and confidential counseling. 14.",
+    "filename": "benefits_policy.txt",
+    "category": "HR",
     "chunk_number": 2,
     "page": 1
   },
   {
-    "text": "ground transport shared ridesharing services are encouraged. 11. airport transfers taxi claims are permitted for travel to and from the airport and client offices. 12. taxi receipts original or digital receipts are mandatory for all taxi claims exceeding the local limit. 13. nonreimbursable fines for parking traffic violations or missed flights caused by personal negligence. 14. advances employees may request a travel advance for anticipated outofpocket expenses. 15. currency foreign travel",
-    "filename": "travel_policy.txt",
-    "category": "Travel",
+    "text": "offers free and confidential counseling. 14. tuition reimbursement covers up to two thousand dollars per calendar year. 15. parental leave grants up to twelve weeks of paid time for new parents. 16. flexible working hours help staff balance personal and professional duties. 17. annual wellness stipends support gym memberships and healthy habits. 18. benefit elections remain locked unless a qualifying life event occurs. 19. qualifying events include marriage birth or loss of other coverage. 20.",
+    "filename": "benefits_policy.txt",
+    "category": "HR",
     "chunk_number": 3,
     "page": 1
   },
   {
-    "text": "outofpocket expenses. 15. currency foreign travel expenses must be claimed in the local currency or converted using bank receipts. 16. companions the company will not reimburse any travel or meal expenses for nonemployee companions. 17. entertainment preapproved client entertainment meals require the names of all attendees on the receipt. 18. lost receipts expenses over 10 missing a proper receipt will not be reimbursed without a formal justification. 19. safety in case of emergencies employees",
-    "filename": "travel_policy.txt",
-    "category": "Travel",
+    "text": "marriage birth or loss of other coverage. 20. human resources handles all questions regarding claims and plan rules.",
+    "filename": "benefits_policy.txt",
+    "category": "HR",
     "chunk_number": 4,
-    "page": 1
-  },
-  {
-    "text": "19. safety in case of emergencies employees must immediately contact hr and their line manager. 20. policy agreement by submitting a claim employees confirm all expenses comply with this policy.",
-    "filename": "travel_policy.txt",
-    "category": "Travel",
-    "chunk_number": 5,
     "page": 1
   }
 ]
